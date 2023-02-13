@@ -90,7 +90,9 @@ final class ViewController: UIViewController {
     }
     
     @objc func sliderChangeValue(sender: UISlider) {
-        
+        if sender == slider {
+            calculator()
+        }
         
     }
     
@@ -153,6 +155,22 @@ final class ViewController: UIViewController {
     @objc func doneButtonTapped() {
         print("tapped Done")
         self.resignFirstResponder()
+        slider.isEnabled = true
+        calculator()
+    }
+
+//MARK: - add calculation method
+    final func calculator() {
+        let sliderPercentValue = Double(slider.value)
+        tipPercentValueLabel.text = "Tips(\(String( NSString(format: "%.1f", sliderPercentValue) ))%)"
+        
+        let textFieldValue = Double(textField.text!)!
+        tipValue = textFieldValue * sliderPercentValue / 100
+        tipValue = round(tipValue / 0.05) * 0.05
+        tipValueLabel.text = String( NSString(format: "%.2f", tipValue) )
+        
+        totalValue = textFieldValue + tipValue
+        totalValueLabel.text = String( NSString(format: "%.2f", totalValue) )
     }
 
 }
