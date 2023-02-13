@@ -7,11 +7,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        setupSubviews()
+    }
+    
+    func setupSubviews() {
+        
+        view.backgroundColor = .systemGray4
     }
 
 
