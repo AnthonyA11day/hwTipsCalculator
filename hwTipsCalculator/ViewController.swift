@@ -10,20 +10,22 @@ import UIKit
 final class ViewController: UIViewController {
 
     private var textField = UITextField()
-    
+    private var slider = UISlider()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupSubviews()
-        addTextField()
     }
     
     final func setupSubviews() {
         title = "TipsCalculator"
         view.backgroundColor = .systemGray4
+        
+        addTextField()
+        addSlider()
     }
     
-//MARK: - add textFIeld
+//MARK: - textFIeld add
     final func addTextField() {
         textField.backgroundColor = .white
         textField.textAlignment = .right
@@ -51,6 +53,36 @@ final class ViewController: UIViewController {
             textField.heightAnchor.constraint(equalToConstant: 16 * 4)
         ])
     }
-
+    
+//MARK: - slider add
+    func addSlider() {
+        slider = UISlider(frame: CGRect(x: 0, y: 0, width: 200, height: 17))
+        slider.minimumTrackTintColor = .systemBlue
+        slider.maximumTrackTintColor = .systemGray
+        slider.minimumValue = 0.0
+        slider.maximumValue = 50.0
+        slider.value = 10.0
+        slider.isEnabled = false
+        slider.addTarget(self,
+                         action: #selector(sliderChangeValue(sender:)),
+                         for: .valueChanged)
+        
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(slider)
+        
+        NSLayoutConstraint.activate([
+            slider.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 16 * 6),
+            slider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            slider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            slider.heightAnchor.constraint(equalToConstant: 16 * 4)
+        ])
+    }
+    
+    @objc func sliderChangeValue(sender: UISlider) {
+        
+        
+    }
 }
+
+
 
