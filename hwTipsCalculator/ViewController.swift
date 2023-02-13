@@ -11,6 +11,14 @@ final class ViewController: UIViewController {
 
     private var textField = UITextField()
     private var slider = UISlider()
+    
+    private var tipPercentValueLabel = UILabel()
+    private var tipValue: Double = 0.0
+    private var tipValueLabel = UILabel()
+    private var tipPercentValue: Double = 0.0
+    private var totalLabel = UILabel()
+    private var totalValueLabel = UILabel()
+    private var totalValue: Double = 0.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +31,11 @@ final class ViewController: UIViewController {
         
         addTextField()
         addSlider()
+        addLabels()
+        addLabelsConstraints()
     }
     
-//MARK: - textFIeld add
+//MARK: - add textFIeld
     final func addTextField() {
         textField.backgroundColor = .white
         textField.textAlignment = .right
@@ -37,9 +47,9 @@ final class ViewController: UIViewController {
         textField.layer.cornerRadius = 5
         textField.keyboardType = .decimalPad
 
-//        textField.addTarget(self,
-//                            action: #selector(textFieldEdit(sender:)),
-//                            for: .valueChanged) // .editingDidBegin
+        //        textField.addTarget(self,
+        //                            action: #selector(textFieldEdit(sender:)),
+        //                            for: .valueChanged) // .editingDidBegin
         
         textField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textField)
@@ -54,8 +64,8 @@ final class ViewController: UIViewController {
         ])
     }
     
-//MARK: - slider add
-    func addSlider() {
+//MARK: - add slider
+    final func addSlider() {
         slider = UISlider(frame: CGRect(x: 0, y: 0, width: 200, height: 17))
         slider.minimumTrackTintColor = .systemBlue
         slider.maximumTrackTintColor = .systemGray
@@ -82,6 +92,51 @@ final class ViewController: UIViewController {
         
         
     }
+    
+//MARK: - add labels
+    final func addLabels() {
+        tipPercentValueLabel.text = "Tip (10.0%)"
+        tipValueLabel.text = "$0.00"
+        totalLabel.text = "Total:"
+        totalValueLabel.text = "$0.00"
+
+        [tipPercentValueLabel, tipValueLabel, totalLabel, totalValueLabel].forEach { label in
+            label.font = .boldSystemFont(ofSize: 14)
+            label.textAlignment = .right
+            label.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(label)
+        }
+                
+
+    }
+    
+//MARK: - create labels contraints
+    final func addLabelsConstraints() {
+        
+        NSLayoutConstraint.activate([
+            tipPercentValueLabel.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 16 * 1),
+            tipPercentValueLabel.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 0 * 0),
+            tipPercentValueLabel.widthAnchor.constraint(equalToConstant: 16 * 7),
+            tipPercentValueLabel.heightAnchor.constraint(equalToConstant: 16 * 2),
+
+            tipValueLabel.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 16 * 1),
+            tipValueLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            tipValueLabel.widthAnchor.constraint(equalToConstant: 16 * 4),
+            tipValueLabel.heightAnchor.constraint(equalToConstant: 16 * 2),
+
+            totalLabel.topAnchor.constraint(equalTo: tipPercentValueLabel.bottomAnchor, constant: 16 * 1),
+            totalLabel.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 0 * 0),
+            totalLabel.widthAnchor.constraint(equalToConstant: 16 * 7),
+            totalLabel.heightAnchor.constraint(equalToConstant: 16 * 2),
+            
+            totalValueLabel.topAnchor.constraint(equalTo: tipPercentValueLabel.bottomAnchor, constant: 16 * 1),
+            totalValueLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            totalValueLabel.widthAnchor.constraint(equalToConstant: 16 * 4),
+            totalValueLabel.heightAnchor.constraint(equalToConstant: 16 * 2)
+        ])
+    }
+    
+    
 }
 
 
