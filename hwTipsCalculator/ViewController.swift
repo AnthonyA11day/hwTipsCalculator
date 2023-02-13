@@ -34,6 +34,7 @@ final class ViewController: UIViewController {
         addLabels()
         addLabelsConstraints()
         addDoneButton()
+        textField.delegate = self
     }
     
 //MARK: - add textFIeld
@@ -162,7 +163,7 @@ final class ViewController: UIViewController {
 //MARK: - add calculation method
     final func calculator() {
         let sliderPercentValue = Double(slider.value)
-        tipPercentValueLabel.text = "Tips(\(String( NSString(format: "%.1f", sliderPercentValue) ))%)"
+        tipPercentValueLabel.text = "Tip (\(String( NSString(format: "%.1f", sliderPercentValue) ))%)"
         
         let textFieldValue = Double(textField.text!)!
         tipValue = textFieldValue * sliderPercentValue / 100
@@ -172,8 +173,21 @@ final class ViewController: UIViewController {
         totalValue = textFieldValue + tipValue
         totalValueLabel.text = String( NSString(format: "%.2f", totalValue) )
     }
-
 }
 
-
+//MARK: - textField Delegate
+extension ViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == textField {
+            let allowChatacters = "0123456789,"
+            let allowChatactersSet = CharacterSet(charactersIn: allowChatacters)
+            let typedCharacterseIn = CharacterSet(charactersIn: string)
+            let numbers = allowChatactersSet.isSuperset(of: typedCharacterseIn)
+            return numbers
+        }
+        return true
+    }
+}
 
