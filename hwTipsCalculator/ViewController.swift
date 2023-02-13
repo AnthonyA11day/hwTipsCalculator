@@ -8,7 +8,7 @@
 import UIKit
 
 final class ViewController: UIViewController {
-
+    
     private var textField = UITextField()
     private var slider = UISlider()
     
@@ -33,6 +33,7 @@ final class ViewController: UIViewController {
         addSlider()
         addLabels()
         addLabelsConstraints()
+        addDoneButton()
     }
     
 //MARK: - add textFIeld
@@ -136,7 +137,24 @@ final class ViewController: UIViewController {
         ])
     }
     
-    
+//MARK: - add DONE button
+    final func addDoneButton() {
+        let toolbar = UIToolbar()
+        toolbar.barStyle = .default
+        toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
+            UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        ]
+        toolbar.sizeToFit()
+        toolbar.backgroundColor = .systemGray5
+        textField.inputAccessoryView = toolbar
+    }
+
+    @objc func doneButtonTapped() {
+        print("tapped Done")
+        self.resignFirstResponder()
+    }
+
 }
 
 
